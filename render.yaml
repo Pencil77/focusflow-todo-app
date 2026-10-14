@@ -1,0 +1,20 @@
+services:
+  - type: web
+      name: focusflow-todo-app
+          runtime: python
+              plan: free
+                  buildCommand: pip install -r requirements.txt
+                      startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+                          envVars:
+                                - key: DATABASE_URL
+                                        fromDatabase:
+                                                  name: focusflow-postgres
+                                                            property: connectionString
+                                                                  - key: SECRET_KEY
+                                                                          generateValue: true
+
+                                                                          databases:
+                                                                            - name: focusflow-postgres
+                                                                                plan: free
+                                                                                    databaseName: focusflow
+                                                                                        user: focusflow_user
